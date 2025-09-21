@@ -1,0 +1,37 @@
+{
+  "name": "playwright-api-testing",
+  "version": "1.0.0",
+  "description": "Playwright API testing project with TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:api": "playwright test --grep @api",
+    "test:ui-only": "playwright test --grep @ui",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:login": "playwright test tests/ui/login.spec.ts",
+    "test:products": "playwright test tests/ui/products-search.spec.ts",
+    "test:checkout": "playwright test tests/ui/checkout.spec.ts",
+    "install-browsers": "playwright install",
+    "codegen": "playwright codegen"
+  },
+  "keywords": [
+    "playwright",
+    "api-testing",
+    "typescript",
+    "automation",
+    "testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^24.5.1",
+    "dotenv": "^17.2.1",
+    "typescript": "^5.0.0"
+  }
+}
