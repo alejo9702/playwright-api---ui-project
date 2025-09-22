@@ -74,10 +74,22 @@ export class ApiHelper {
     }
 
     /**
-     * Assert response status code
+     * Assert response status code.
+     *
+     * Accepts either a single expected status code (number) or an array of acceptable status codes.
+     * If an array is provided, asserts that the response status is included in the array.
+     * If a single number is provided, asserts that the response status equals that number.
+     *
+     * @param response - The response object to check.
+     * @param expectedStatus - The expected status code (number) or array of acceptable status codes (number[]).
      */
-    async expectStatus(response: any, expectedStatus: number) {
-        expect(response.status()).toBe(expectedStatus);
+    async expectStatus(response: any, expectedStatus: number | number[]) {
+        const actualStatus = response.status();
+        if (Array.isArray(expectedStatus)) {
+            expect(expectedStatus).toContain(actualStatus);
+        } else {
+            expect(actualStatus).toBe(expectedStatus);
+        }
     }
 
     /**
