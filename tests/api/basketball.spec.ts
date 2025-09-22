@@ -2,7 +2,7 @@ import {test, expect, request, APIRequestContext} from "@playwright/test";
 import {ApiHelper} from "../utils/api-helper";
 
 
-test.describe("API highlight basketball", () => {
+test.describe("@api API highlight basketball", () => {
     let api: ApiHelper;
     let season: number;
     let leagueId: number;
@@ -20,7 +20,7 @@ test.describe("API highlight basketball", () => {
     });
 
 
-    test("@api GET /TEAMS", async () => {
+    test("GET /TEAMS", async () => {
 
         const queryParams = {
             limit: "40",
@@ -45,7 +45,7 @@ test.describe("API highlight basketball", () => {
         let league: number, seasonId: number;
 
 
-        await test.step("@api  @basketball GET /teams/statics", async () => {
+        await test.step("@basketball GET /teams/statics", async () => {
             const res = await api.get("/teams/statistics/124179", {query: {fromDate: "2024-08-01"}});
             const body = await res.json()
 
@@ -62,7 +62,7 @@ test.describe("API highlight basketball", () => {
             //  console.log("leagueId: ", league, "seasonId: ", seasonId);
         })
 
-        await test.step("@api  @basketball GET /standings", async () => {
+        await test.step("@basketball GET /standings", async () => {
             const res = await api.get("/standings", {query: {leagueId: league, season: seasonId}})
             const body = await res.json();
             console.info("Response body:", JSON.stringify(body, null, 2));

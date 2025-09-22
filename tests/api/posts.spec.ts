@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { ApiHelper } from '../utils/api-helper';
 import { testPosts, Post } from '../fixtures/test-data';
 
-test.describe('Posts API Tests', () => {
+test.describe('@api Posts API Tests', () => {
   let apiHelper: ApiHelper;
 
   test.beforeEach(async ({ request }) => {
@@ -10,7 +10,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('GET /posts', () => {
-    test('@api @smoke should get all posts', async () => {
+    test('@smoke should get all posts', async () => {
       const response = await apiHelper.get('/posts');
       
       await apiHelper.expectStatus(response, 200);
@@ -23,7 +23,7 @@ test.describe('Posts API Tests', () => {
       expect(posts[0]).toHaveProperty('userId');
     });
 
-    test('@api should get posts by user id', async () => {
+    test('should get posts by user id', async () => {
       const userId = 1;
       const response = await apiHelper.get(`/posts?userId=${userId}`);
       
@@ -36,7 +36,7 @@ test.describe('Posts API Tests', () => {
       });
     });
 
-    test('@api should get posts with pagination', async () => {
+    test('should get posts with pagination', async () => {
       const response = await apiHelper.get('/posts?_page=1&_limit=10');
       
       await apiHelper.expectStatus(response, 200);
@@ -45,7 +45,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('GET /posts/{id}', () => {
-    test('@api @smoke should get post by id', async () => {
+    test('@smoke should get post by id', async () => {
       const postId = 1;
       const response = await apiHelper.get(`/posts/${postId}`);
       
@@ -56,7 +56,7 @@ test.describe('Posts API Tests', () => {
       await apiHelper.expectResponseHasField(response, 'userId');
     });
 
-    test('@api should return 404 for non-existent post', async () => {
+    test('should return 404 for non-existent post', async () => {
       const response = await apiHelper.get('/posts/999');
       
       await apiHelper.expectStatus(response, 404);
@@ -64,7 +64,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('POST /posts', () => {
-    test('@api @smoke should create a new post', async () => {
+    test('@smoke should create a new post', async () => {
       const newPost = testPosts[0];
       const response = await apiHelper.post('/posts', newPost);
       
@@ -77,7 +77,7 @@ test.describe('Posts API Tests', () => {
       await apiHelper.expectResponseHasField(response, 'id');
     });
 
-    test('@api should create post with minimal data', async () => {
+    test('should create post with minimal data', async () => {
       const minimalPost = {
         title: 'Minimal Post',
         body: 'This is a minimal post',
@@ -92,7 +92,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('PUT /posts/{id}', () => {
-    test('@api @smoke should update post completely', async () => {
+    test('@smoke should update post completely', async () => {
       const postId = 1;
       const updatedPost = {
         title: 'Updated Post Title',
@@ -109,7 +109,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('PATCH /posts/{id}', () => {
-    test('@api should partially update post', async () => {
+    test('should partially update post', async () => {
       const postId = 1;
       const partialUpdate = {
         title: 'Partially Updated Post'
@@ -124,7 +124,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('DELETE /posts/{id}', () => {
-    test('@api @smoke should delete post', async () => {
+    test('@smoke should delete post', async () => {
       const response = await apiHelper.delete('/posts/1');
       
       await apiHelper.expectStatus(response, 200);
@@ -132,7 +132,7 @@ test.describe('Posts API Tests', () => {
   });
 
   test.describe('GET /posts/{id}/comments', () => {
-    test('@api should get comments for a specific post', async () => {
+    test('should get comments for a specific post', async () => {
       const postId = 1;
       const response = await apiHelper.get(`/posts/${postId}/comments`);
       
@@ -150,7 +150,7 @@ test.describe('Posts API Tests', () => {
       }
     });
 
-    test('@api should return empty array for post with no comments', async () => {
+    test('should return empty array for post with no comments', async () => {
       const response = await apiHelper.get('/posts/999/comments');
       
       await apiHelper.expectStatus(response, 200);

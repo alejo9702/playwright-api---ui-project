@@ -2,7 +2,7 @@ import {test, expect, request} from "@playwright/test";
 import {ApiHelper} from "../utils/api-helper";
 import {testUsers, User} from "../fixtures/test-data";
 
-test.describe("Users API Tests", () => {
+test.describe("@api Users API Tests", () => {
     let apiHelper: ApiHelper;
 
     test.beforeEach(async ({request}) => {
@@ -10,7 +10,7 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("GET /users", () => {
-        test("@api @smoke should get all users", async () => {
+        test("@smoke should get all users", async () => {
             const response = await apiHelper.get("/users");
 
             await apiHelper.expectStatus(response, 200);
@@ -22,14 +22,14 @@ test.describe("Users API Tests", () => {
             expect(users[0]).toHaveProperty("email");
         });
 
-        test("@api should get users with specific limit", async () => {
+        test("should get users with specific limit", async () => {
             const response = await apiHelper.get("/users?_limit=5");
 
             await apiHelper.expectStatus(response, 200);
             await apiHelper.expectResponseArrayLength(response, 5);
         });
 
-        test("@api should get users with pagination", async () => {
+        test("should get users with pagination", async () => {
             const response = await apiHelper.get("/users?_page=2&_limit=3");
 
             await apiHelper.expectStatus(response, 200);
@@ -38,7 +38,7 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("GET /users/{id}", () => {
-        test("@api @smoke should get user by id", async () => {
+        test("@smoke should get user by id", async () => {
             const userId = 1;
             const response = await apiHelper.get(`/users/${userId}`);
 
@@ -48,13 +48,13 @@ test.describe("Users API Tests", () => {
             await apiHelper.expectResponseHasField(response, "email");
         });
 
-        test("@api should return 404 for non-existent user", async () => {
+        test("should return 404 for non-existent user", async () => {
             const response = await apiHelper.get("/users/999");
 
             await apiHelper.expectStatus(response, 404);
         });
 
-        test("@api should get user with all required fields", async () => {
+        test("should get user with all required fields", async () => {
             const response = await apiHelper.get("/users/1");
 
             await apiHelper.expectStatus(response, 200);
@@ -70,7 +70,7 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("POST /users", () => {
-        test("@api @smoke should create a new user", async () => {
+        test("@smoke should create a new user", async () => {
             const newUser = testUsers[0];
             const response = await apiHelper.post("/users", newUser);
 
@@ -83,7 +83,7 @@ test.describe("Users API Tests", () => {
             await apiHelper.expectResponseHasField(response, "id");
         });
 
-        test("@api should create user with minimal data", async () => {
+        test("should create user with minimal data", async () => {
             const minimalUser = {
                 name: "Minimal User",
                 username: "minimal",
@@ -96,7 +96,7 @@ test.describe("Users API Tests", () => {
             await apiHelper.expectResponseContains(response, minimalUser);
         });
 
-        test("@api should create user with full data", async () => {
+        test("should create user with full data", async () => {
             const fullUser = testUsers[1];
             const response = await apiHelper.post("/users", fullUser);
 
@@ -112,7 +112,7 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("PUT /users/{id}", () => {
-        test("@api @smoke should update user completely", async () => {
+        test("@smoke should update user completely", async () => {
             const userId = 1;
             const updatedUser = {
                 name: "Updated User",
@@ -129,7 +129,7 @@ test.describe("Users API Tests", () => {
             await apiHelper.expectResponseFieldValue(response, "id", userId);
         });
 
-        test("@api should return 404 when updating non-existent user", async () => {
+        test("should return 404 when updating non-existent user", async () => {
             const response = await apiHelper.put("/users/999", {name: "Test"});
 
             await apiHelper.expectStatus(response, 404);
@@ -137,7 +137,7 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("PATCH /users/{id}", () => {
-        test("@api should partially update user", async () => {
+        test("should partially update user", async () => {
             const userId = 1;
             const partialUpdate = {
                 name: "Partially Updated User",
@@ -153,13 +153,13 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("DELETE /users/{id}", () => {
-        test("@api @smoke should delete user", async () => {
+        test("@smoke should delete user", async () => {
             const response = await apiHelper.delete("/users/1");
 
             await apiHelper.expectStatus(response, 200);
         });
 
-        test("@api should return 404 when deleting non-existent user", async () => {
+        test("should return 404 when deleting non-existent user", async () => {
             const response = await apiHelper.delete("/users/999");
 
             await apiHelper.expectStatus(response, 404);
@@ -167,7 +167,7 @@ test.describe("Users API Tests", () => {
     });
 
     test.describe("Error Handling", () => {
-        test("@api should handle malformed JSON in POST request", async () => {
+        test("should handle malformed JSON in POST request", async () => {
             const response = await apiHelper.post("/users", "invalid json", {
                 "Content-Type": "application/json",
             });
@@ -177,7 +177,7 @@ test.describe("Users API Tests", () => {
             expect([200, 201, 400]).toContain(response.status());
         });
 
-        test("@api should handle missing required fields", async () => {
+        test("should handle missing required fields", async () => {
             const incompleteUser = {
                 name: "Incomplete User",
                 // Missing username and email

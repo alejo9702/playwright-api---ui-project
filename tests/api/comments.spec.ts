@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { ApiHelper } from '../utils/api-helper';
 import { testComments, Comment } from '../fixtures/test-data';
 
-test.describe('Comments API Tests', () => {
+test.describe('@api Comments API Tests', () => {
   let apiHelper: ApiHelper;
 
   test.beforeEach(async ({ request }) => {
@@ -10,7 +10,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('GET /comments', () => {
-    test('@api @smoke should get all comments', async () => {
+    test('@smoke should get all comments', async () => {
       const response = await apiHelper.get('/comments');
       
       await apiHelper.expectStatus(response, 200);
@@ -24,7 +24,7 @@ test.describe('Comments API Tests', () => {
       expect(comments[0]).toHaveProperty('body');
     });
 
-    test('@api should get comments by post id', async () => {
+    test('should get comments by post id', async () => {
       const postId = 1;
       const response = await apiHelper.get(`/comments?postId=${postId}`);
       
@@ -37,7 +37,7 @@ test.describe('Comments API Tests', () => {
       });
     });
 
-    test('@api should get comments with pagination', async () => {
+    test('should get comments with pagination', async () => {
       const response = await apiHelper.get('/comments?_page=1&_limit=5');
       
       await apiHelper.expectStatus(response, 200);
@@ -46,7 +46,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('GET /comments/{id}', () => {
-    test('@api @smoke should get comment by id', async () => {
+    test('@smoke should get comment by id', async () => {
       const commentId = 1;
       const response = await apiHelper.get(`/comments/${commentId}`);
       
@@ -58,7 +58,7 @@ test.describe('Comments API Tests', () => {
       await apiHelper.expectResponseHasField(response, 'body');
     });
 
-    test('@api should return 404 for non-existent comment', async () => {
+    test('should return 404 for non-existent comment', async () => {
       const response = await apiHelper.get('/comments/999');
       
       await apiHelper.expectStatus(response, 404);
@@ -66,7 +66,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('POST /comments', () => {
-    test('@api @smoke should create a new comment', async () => {
+    test('@smoke should create a new comment', async () => {
       const newComment = testComments[0];
       const response = await apiHelper.post('/comments', newComment);
       
@@ -80,7 +80,7 @@ test.describe('Comments API Tests', () => {
       await apiHelper.expectResponseHasField(response, 'id');
     });
 
-    test('@api should create comment with minimal data', async () => {
+    test('should create comment with minimal data', async () => {
       const minimalComment = {
         postId: 1,
         name: 'Minimal Commenter',
@@ -96,7 +96,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('PUT /comments/{id}', () => {
-    test('@api @smoke should update comment completely', async () => {
+    test('@smoke should update comment completely', async () => {
       const commentId = 1;
       const updatedComment = {
         postId: 1,
@@ -114,7 +114,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('PATCH /comments/{id}', () => {
-    test('@api should partially update comment', async () => {
+    test('should partially update comment', async () => {
       const commentId = 1;
       const partialUpdate = {
         name: 'Partially Updated Commenter',
@@ -130,7 +130,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('DELETE /comments/{id}', () => {
-    test('@api @smoke should delete comment', async () => {
+    test('@smoke should delete comment', async () => {
       const response = await apiHelper.delete('/comments/1');
       
       await apiHelper.expectStatus(response, 200);
@@ -138,7 +138,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('Email Validation', () => {
-    test('@api should accept valid email formats', async () => {
+    test('should accept valid email formats', async () => {
       const validEmails = [
         'test@example.com',
         'user.name@domain.co.uk',
@@ -158,7 +158,7 @@ test.describe('Comments API Tests', () => {
       }
     });
 
-    test('@api should handle invalid email formats gracefully', async () => {
+    test('should handle invalid email formats gracefully', async () => {
       const invalidEmails = [
         'invalid-email',
         '@example.com',
@@ -183,7 +183,7 @@ test.describe('Comments API Tests', () => {
   });
 
   test.describe('Data Validation', () => {
-    test('@api should handle empty comment body', async () => {
+    test('should handle empty comment body', async () => {
       const comment = {
         postId: 1,
         name: 'Empty Body Test',
@@ -196,7 +196,7 @@ test.describe('Comments API Tests', () => {
       expect([200, 201, 400]).toContain(response.status());
     });
 
-    test('@api should handle very long comment body', async () => {
+    test('should handle very long comment body', async () => {
       const longBody = 'A'.repeat(1000); // 1000 character comment
       const comment = {
         postId: 1,
