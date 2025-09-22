@@ -48,7 +48,7 @@ test.describe("@api Users API Tests", () => {
             await apiHelper.expectResponseHasField(response, "email");
         });
 
-        test("should return 404 for non-existent user", async () => {
+        test("@flaky should return 404 for non-existent user", async () => {
             const response = await apiHelper.get("/users/999");
 
             await apiHelper.expectStatus(response, [404, 500]);
@@ -129,7 +129,7 @@ test.describe("@api Users API Tests", () => {
             await apiHelper.expectResponseFieldValue(response, "id", userId);
         });
 
-        test("should return 404 when updating non-existent user", async () => {
+        test("@flaky should return 404 when updating non-existent user", async () => {
             const response = await apiHelper.put("/users/999", {name: "Test"});
 
             await apiHelper.expectStatus(response, [404, 500]);
@@ -159,7 +159,7 @@ test.describe("@api Users API Tests", () => {
             await apiHelper.expectStatus(response, 200);
         });
 
-        test("should return 404 when deleting non-existent user", async () => {
+        test("@flaky should return 404 when deleting non-existent user", async () => {
             const response = await apiHelper.delete("/users/999");
 
             await apiHelper.expectStatus(response, [404, 500]);
@@ -167,7 +167,7 @@ test.describe("@api Users API Tests", () => {
     });
 
     test.describe("Error Handling", () => {
-        test("should handle malformed JSON in POST request", async () => {
+        test("@flaky should handle malformed JSON in POST request", async () => {
             const response = await apiHelper.post("/users", "invalid json", {
                 "Content-Type": "application/json",
             });

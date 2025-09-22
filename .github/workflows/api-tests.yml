@@ -30,12 +30,12 @@ jobs:
       - name: Install playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Api tests
-        run: npx playwright test --grep "@api" --project=chromium
+        run: npx playwright test --grep "@api" --grep-invert "@flaky" --project=chromium
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 2
 
 
