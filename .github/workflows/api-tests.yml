@@ -30,7 +30,7 @@ jobs:
       - name: Install playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Api tests
-        run: npx playwright test--grep "@api"
+        run: npx playwright test --grep "@api"
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
