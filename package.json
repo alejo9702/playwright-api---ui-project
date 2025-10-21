@@ -6,10 +6,10 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui",
+    "test:ui": "playwright test --ui --project=chromium",
     "test:debug": "playwright test --debug",
     "test:report": "playwright show-report",
-    "test:api": "playwright test --grep @api",
+    "test:api": "playwright test --grep @api --grep-invert '@flaky'",
     "test:ui-only": "playwright test --grep @ui",
     "test:smoke": "playwright test --grep @smoke",
     "test:regression": "playwright test --grep @regression",

@@ -2,9 +2,9 @@ import {defineConfig, devices} from '@playwright/test';
 import * as dotenv from "dotenv";
 
 dotenv.config();
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
+const API_BASE_URL = process.env.API_BASE_URL;
+const UI_BASE_URL = process.env.UI_BASE_URL;
+
 export default defineConfig({
     testDir: './tests',
     /* Run tests in files in parallel */
@@ -26,7 +26,7 @@ export default defineConfig({
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
-        baseURL: process.env.BASE_URL || 'https://jsonplaceholder.typicode.com',
+        baseURL: API_BASE_URL || 'https://jsonplaceholder.typicode.com',
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
@@ -34,19 +34,25 @@ export default defineConfig({
 
     /* Configure projects for major browsers */
     projects: [
+
+        {
+            name: 'api',
+            use: {baseURL: API_BASE_URL},
+        },
+
         {
             name: 'chromium',
-            use: {...devices['Desktop Chrome']},
+            use: {...devices['Desktop Chrome'], baseURL: UI_BASE_URL},
         },
 
         {
             name: 'firefox',
-            use: {...devices['Desktop Firefox']},
+            use: {...devices['Desktop Firefox'], baseURL: UI_BASE_URL},
         },
 
         {
             name: 'webkit',
-            use: {...devices['Desktop Safari']},
+            use: {...devices['Desktop Safari'], baseURL: UI_BASE_URL},
         },
 
         /* Test against mobile viewports. */
