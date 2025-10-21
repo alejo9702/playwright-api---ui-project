@@ -20,9 +20,9 @@ export class LoginPage extends BasePage {
     super(page);
     
     // Primary selectors using data-test attributes
-    this.emailInput = page.locator('[data-test="email-input"]');
-    this.passwordInput = page.locator('[data-test="password-input"]');
-    this.loginButton = page.locator('[data-test="login-button"]');
+    this.emailInput = page.locator('[data-test="email"]');
+    this.passwordInput = page.locator('[data-test="password"]');
+    this.loginButton = page.locator('[data-test="login-submit"]');
     this.rememberMeCheckbox = page.locator('[data-test="remember-me"]');
     this.forgotPasswordLink = page.locator('[data-test="forgot-password"]');
     this.errorMessage = page.locator('[data-test="error-message"]');
@@ -38,7 +38,7 @@ export class LoginPage extends BasePage {
    * Navigate to login page
    */
   async navigateToLoginPage(): Promise<void> {
-    await this.navigateTo('/login');
+    await this.navigateTo('auth/login');
     await this.waitForPageLoad();
   }
 

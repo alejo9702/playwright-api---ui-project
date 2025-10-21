@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { CheckoutPage, Address, PaymentInfo } from '../../src/po/pages/Checkout.page';
 
-test.describe('Checkout Page UI Tests', () => {
+test.describe('@ui Checkout Page UI Tests', () => {
   let checkoutPage: CheckoutPage;
 
   test.beforeEach(async ({ page }) => {
@@ -9,7 +9,7 @@ test.describe('Checkout Page UI Tests', () => {
     await checkoutPage.navigateToCheckout();
   });
 
-  test.describe('@ui @smoke Checkout Process', () => {
+  test.describe('@smoke Checkout Process', () => {
     test('should display checkout form elements', async () => {
       await checkoutPage.assertShippingFormVisible();
     });
@@ -51,7 +51,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Form Validation', () => {
+  test.describe('Form Validation', () => {
     test('should validate required fields', async () => {
       // Try to proceed without filling required fields
       await checkoutPage.goToNextStep();
@@ -124,7 +124,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Multi-step Navigation', () => {
+  test.describe('Multi-step Navigation', () => {
     test('should navigate through checkout steps', async () => {
       // Step 1: Shipping address
       const initialStep = await checkoutPage.getCurrentStep();
@@ -222,7 +222,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Payment Processing', () => {
+  test.describe('Payment Processing', () => {
     test('should handle valid payment information', async () => {
       const address: Address = {
         firstName: 'John',
@@ -321,7 +321,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Coupon and Discounts', () => {
+  test.describe('Coupon and Discounts', () => {
     test('should apply valid coupon code', async () => {
       const initialTotal = await checkoutPage.getTotalAmount();
       
@@ -349,7 +349,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Order Cancellation', () => {
+  test.describe('Order Cancellation', () => {
     test('should cancel order successfully', async () => {
       await checkoutPage.cancelOrder();
       
@@ -367,7 +367,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Accessibility and UX', () => {
+  test.describe('Accessibility and UX', () => {
     test('should have proper focus management', async () => {
       // Tab through form elements
       await checkoutPage['page'].keyboard.press('Tab');
@@ -416,7 +416,7 @@ test.describe('Checkout Page UI Tests', () => {
     });
   });
 
-  test.describe('@ui Responsive Design', () => {
+  test.describe('Responsive Design', () => {
     test('should work on mobile viewport', async () => {
       await checkoutPage['page'].setViewportSize({ width: 375, height: 667 });
       
